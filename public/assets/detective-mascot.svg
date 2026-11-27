@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-labelledby="title desc">
+  <title id="title">Basyir Agency detective mascot</title>
+  <desc id="desc">A friendly illustrated detective with a navy coat, teal scarf, amber magnifying glass and classic detective hat.</desc>
+  <defs>
+    <linearGradient id="coat" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#23415d"/><stop offset="1" stop-color="#0b1b2e"/></linearGradient>
+    <linearGradient id="hat" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8c17b"/><stop offset="1" stop-color="#a97836"/></linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9ce8e3" stop-opacity=".65"/><stop offset="1" stop-color="#39aeb2" stop-opacity=".18"/></linearGradient>
+  </defs>
+  <circle cx="110" cy="110" r="100" fill="#0c2035" stroke="#2b536b" stroke-width="2"/>
+  <circle cx="110" cy="110" r="86" fill="none" stroke="#48c5c0" stroke-opacity=".22" stroke-dasharray="3 8"/>
+  <path d="M44 198c5-34 27-53 66-53s61 19 66 53" fill="url(#coat)" stroke="#3b6176" stroke-width="3"/>
+  <path d="M89 148l21 25 21-25-9-13h-24z" fill="#1a8d91"/>
+  <path d="M95 147l15 18 15-18-7-9h-16z" fill="#63d5cb"/>
+  <path d="M74 92c0-34 16-56 36-56s36 22 36 56v30c0 25-16 43-36 43s-36-18-36-43z" fill="#d9a878" stroke="#9e714f" stroke-width="2"/>
+  <path d="M68 80c4-31 21-49 42-49 24 0 40 19 43 49l-11 7H77z" fill="url(#hat)" stroke="#9b713b" stroke-width="3"/>
+  <path d="M58 84c13-9 31-14 52-14 22 0 40 5 52 14-8 9-25 14-52 14-26 0-43-5-52-14z" fill="#b98746" stroke="#e8c17b" stroke-width="3"/>
+  <path d="M87 105c5-4 11-4 16 0M117 105c5-4 11-4 16 0" fill="none" stroke="#563d30" stroke-width="3" stroke-linecap="round"/>
+  <path d="M103 127c5 4 11 4 16 0" fill="none" stroke="#87513d" stroke-width="3" stroke-linecap="round"/>
+  <path d="M79 117c8 3 16 4 24 4M117 121c8 0 16-1 24-4" fill="none" stroke="#3a5365" stroke-width="2" opacity=".7"/>
+  <path d="M75 153l-15 22 21 22 19-35M145 153l15 22-21 22-19-35" fill="#132a42" stroke="#34546b" stroke-width="2"/>
+  <path d="M93 171l17 16 17-16" fill="none" stroke="#e4b76b" stroke-width="3"/>
+  <circle cx="163" cy="137" r="25" fill="url(#glass)" stroke="#e5b968" stroke-width="6"/>
+  <path d="M181 155l18 21" stroke="#e5b968" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="163" cy="137" r="15" fill="none" stroke="#b9ffff" stroke-opacity=".55" stroke-width="2"/>
+  <path d="M47 45l5-10 5 10 10 5-10 5-5 10-5-10-10-5z" fill="#e8bd72" opacity=".9"/>
+  <circle cx="178" cy="54" r="4" fill="#55c9c1"/>
+  <circle cx="36" cy="146" r="3" fill="#55c9c1"/>
+</svg>

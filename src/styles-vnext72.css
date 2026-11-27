@@ -1,0 +1,673 @@
+/* BASYIR AGENCY vNext7.2 — Global dark theme and high-readability layer.
+   This stylesheet is intentionally imported last after component and legacy CSS. */
+
+:root {
+  color-scheme: dark;
+  background: #071321;
+  color: #F4F7FA;
+
+  /* Core design tokens */
+  --ba-bg: #071321;
+  --ba-surface: #0C1D2E;
+  --ba-surface-raised: #12283B;
+  --ba-surface-elevated: #172F45;
+  --ba-surface-inset: #091A2A;
+  --ba-border: #344F64;
+
+  /* Readability tokens */
+  --ba-title: #F4F7FA;
+  --ba-text: #EAF1F6;
+  --ba-text-secondary: #D1DCE5;
+  --ba-text-muted: #B8C7D2;
+  --ba-text-disabled: #9AAAB7;
+
+  /* Muted, visible accents */
+  --ba-amber: #B98A4B;
+  --ba-amber-bright: #E2C28C;
+  --ba-amber-hover: #C49A5C;
+  --ba-amber-ink: #071525;
+  --ba-teal: #5E9892;
+  --ba-teal-bright: #A5D3CF;
+  --ba-teal-soft: #17383B;
+  --ba-cyan: #477F90;
+  --ba-cyan-bright: #A9D5E2;
+  --ba-cyan-soft: #172F40;
+  --ba-lavender-bright: #C9C6EF;
+
+  /* Semantic states */
+  --ba-success-bg: #173C33;
+  --ba-success-text: #B8E7C8;
+  --ba-warning-bg: #3A3020;
+  --ba-warning-text: #F0D49A;
+  --ba-danger-bg: #422A30;
+  --ba-danger-text: #F0B9B5;
+
+  /* Compatibility tokens retained for existing components */
+  --navy: #071525;
+  --navy2: #102338;
+  --ink: #EAF1F6;
+  --muted: #B8C7D2;
+  --line: #344F64;
+  --paper: #102438;
+  --gold: #B98A4B;
+  --gold-dark: #98703F;
+  --teal: #5E9892;
+  --red: #D58A84;
+  --coral: #9B554F;
+  --lime: #315B55;
+  --mint: #173B3A;
+  --lavender: #2C3047;
+  --sand: #292D2C;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  background: var(--ba-bg);
+  color: var(--ba-text);
+}
+
+html {
+  color-scheme: dark;
+  scrollbar-color: #456176 #091A2A;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 14% 0%, rgba(42, 99, 111, .12), transparent 34%),
+    radial-gradient(ellipse at 92% 20%, rgba(38, 68, 103, .12), transparent 30%),
+    var(--ba-bg);
+  color: var(--ba-text);
+}
+
+#root,
+.app-root {
+  min-height: 100vh;
+  min-height: 100svh;
+  color: var(--ba-text);
+}
+
+.app-root {
+  background: transparent;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--ba-title);
+}
+
+::selection {
+  color: #071525;
+  background: #A9D5E2;
+}
+
+a {
+  color: var(--ba-cyan-bright);
+  text-decoration-color: rgba(169, 213, 226, .45);
+}
+
+a:hover {
+  color: #D5EEF5;
+}
+
+input,
+textarea,
+select {
+  color: var(--ba-text);
+  background: var(--ba-surface-inset);
+  border-color: var(--ba-border);
+  color-scheme: dark;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--ba-text-muted);
+  opacity: 1;
+}
+
+select option {
+  color: var(--ba-text);
+  background: var(--ba-surface-raised);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--ba-cyan-bright);
+  outline-offset: 3px;
+}
+
+button:disabled {
+  opacity: .72;
+}
+
+hr {
+  border-color: var(--ba-border);
+}
+
+table {
+  color: var(--ba-text);
+}
+
+th {
+  color: var(--ba-text-secondary);
+}
+
+td {
+  color: var(--ba-text);
+}
+
+/* Legacy paper-like surfaces that were not covered by vNext7.1. */
+body :is(
+  .toast,
+  .game-score-card,
+  .phase-track,
+  .briefing-card,
+  .briefing-side,
+  .scene-panel,
+  .targets-panel,
+  .puzzle-intro-card,
+  .puzzle-board,
+  .summary-main,
+  .summary-side,
+  .mastery-side-card,
+  .question-card,
+  .game-feedback,
+  .mastery-result-card,
+  .book-vocab-grid article,
+  .book-examples article,
+  .istima-transcript article,
+  .deduction-elimination-list > div
+) {
+  background: var(--ba-surface-raised);
+  color: var(--ba-text);
+  border-color: var(--ba-border);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .18);
+}
+
+body :is(.btn-secondary, .btn-outline) {
+  color: var(--ba-text);
+  background: var(--ba-surface-elevated);
+  border-color: var(--ba-border);
+}
+
+body :is(.btn-secondary:hover:not(:disabled), .btn-outline:hover:not(:disabled)) {
+  color: var(--ba-title);
+  background: #203B52;
+  border-color: #58758A;
+}
+
+.toast > span {
+  color: var(--ba-teal-bright);
+  background: var(--ba-teal-soft);
+  border: 1px solid #3E6765;
+}
+
+.toast-close {
+  color: var(--ba-text-secondary);
+}
+
+.game-feedback > span {
+  color: var(--ba-text-secondary);
+  background: var(--ba-surface-inset);
+  border: 1px solid var(--ba-border);
+}
+
+.feedback-success > span {
+  color: var(--ba-success-text);
+  background: var(--ba-success-bg);
+  border-color: #3C705B;
+}
+
+.feedback-warning > span {
+  color: var(--ba-warning-text);
+  background: var(--ba-warning-bg);
+  border-color: #78613A;
+}
+
+body :is(.detective-section-heading > span, .checkpoint-tag) {
+  color: var(--ba-amber-bright);
+  background: #302B22;
+  border-color: #695638;
+}
+
+.deduction-elimination-list > div {
+  color: var(--ba-text);
+  background: var(--ba-surface-inset);
+  border-color: var(--ba-border);
+}
+
+.mini-art-location {
+  color: var(--ba-text);
+  background: rgba(8, 23, 37, .90);
+  border-color: rgba(169, 213, 226, .25);
+}
+
+.hero-panel {
+  box-shadow: 8px 8px 0 rgba(185, 138, 75, .22), 0 20px 45px rgba(0, 0, 0, .22);
+}
+
+.phase-step.step-current span {
+  color: #C9E4DA;
+}
+
+.stat-icon {
+  color: var(--ba-teal-bright);
+  background: #173B3A;
+}
+
+.case-number {
+  color: #D1E6DC;
+  background: #21463F;
+  border-color: #426A60;
+}
+
+.mastery-side-icon {
+  color: var(--ba-amber-bright);
+  background: rgba(185, 138, 75, .10);
+}
+
+.mini-art-glow {
+  background: rgba(169, 213, 226, .12);
+}
+
+.episode-art-mini::after {
+  background: rgba(169, 213, 226, .12);
+}
+
+/* Audio settings control: dark translucent surface, readable state labels. */
+.game-audio-controls > summary {
+  color: var(--ba-text);
+  background: rgba(16, 36, 56, .97);
+  border-color: #3A566C;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, .28);
+}
+
+.game-audio-summary-icon,
+.game-audio-summary-state {
+  color: var(--ba-teal-bright);
+  background: var(--ba-teal-soft);
+}
+
+.game-audio-panel {
+  color: var(--ba-text);
+  background: rgba(12, 29, 46, .99);
+  border-color: #3A566C;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, .38);
+}
+
+.game-audio-panel-heading small,
+.game-audio-toggle small,
+.game-audio-range output {
+  color: var(--ba-text-secondary);
+}
+
+.game-audio-toggle,
+.game-audio-range {
+  border-color: var(--ba-border);
+}
+
+.game-audio-note {
+  color: var(--ba-text-secondary);
+  background: var(--ba-surface-inset);
+  border: 1px solid var(--ba-border);
+}
+
+/* Authentication surfaces remain dark even if their component CSS loads later. */
+.auth-description,
+.auth-switch,
+.auth-field {
+  color: var(--ba-text-secondary);
+}
+
+.auth-field input {
+  color: var(--ba-title);
+  background: var(--ba-surface-inset);
+  border-color: #38536A;
+}
+
+.auth-field input::placeholder {
+  color: var(--ba-text-muted);
+}
+
+.auth-feedback-success {
+  color: var(--ba-success-text);
+  background: var(--ba-success-bg);
+}
+
+.auth-feedback-error {
+  color: var(--ba-danger-text);
+  background: var(--ba-danger-bg);
+}
+
+.auth-switch button,
+.auth-guest-link {
+  color: var(--ba-amber-bright);
+}
+
+/* Global text contrast corrections for legacy selectors. */
+body .audio-engine-note,
+body .auth-field input::placeholder,
+body .ba-admin-role,
+body .ba-admin-table td:first-child small,
+body .ba-admin-table th,
+body .back-link,
+body .board-evidence-list small,
+body .book-learning-objective p,
+body .book-progress small,
+body .book-vocab-grid article>small,
+body .brand-copy small,
+body .briefing-card>p,
+body .briefing-list li,
+body .briefing-location small,
+body .case-index,
+body .chapter-heading-inline small,
+body .context-evidence-grid small,
+body .context-sentence small,
+body .data-action-card p,
+body .detective-section-heading p,
+body .episode-academic-title small,
+body .episode-card-body>p,
+body .episode-number,
+body .episode-score small,
+body .evidence-modal-foot p,
+body .flipbook-toc-list button,
+body .flipbook-toc>p,
+body .folder-label,
+body .footer,
+body .footer-copyright,
+body .game-audio-note,
+body .game-audio-panel-heading small,
+body .game-audio-range output,
+body .game-audio-toggle small,
+body .game-feedback button,
+body .game-score-card small,
+body .game-score-card span,
+body .hint-mini,
+body .howto-list p,
+body .import-summary span,
+body .istima-speaker>span:last-child,
+body .library-chapter small,
+body .library-chapter span,
+body .library-source-note,
+body .main-nav .nav-link,
+body .mastery-big-score small,
+body .mastery-result-card>p,
+body .mastery-side-note,
+body .modal-card>p,
+body .muted,
+body .nav-link,
+body .objective-row small,
+body .phase-step small,
+body .piece-text span,
+body .practice-translit,
+body .puzzle-count,
+body .puzzle-intro-card>p,
+body .puzzle-stats span,
+body .puzzle-tip p,
+body .question-card-bottom>span,
+body .recovery-notice p,
+body .reset-row small,
+body .reset-row>i,
+body .reset-section p,
+body .scene-caption,
+body .scene-caption-note,
+body .search-box input::placeholder,
+body .section-heading p,
+body .site-footer,
+body .site-footer p,
+body .site-footer small,
+body .site-footer-inner,
+body .speaker-utterance>small,
+body .storage-disclaimer p,
+body .summary-main>p,
+body .summary-score-block small,
+body .summary-suspect>p,
+body .suspect-card .speaker-task,
+body .suspect-intro p,
+body .suspect-intro-heading small,
+body .suspect-screen .suspect-intro>p,
+body .suspect-selection-guidance p,
+body .suspect-selection-heading p,
+body .target-arrow,
+body .target-count small,
+body .target-progress small,
+body .target-status,
+body .toast-close,
+body .verdict-bottom small,
+body .vnext7-suspect-card .speaker-task,
+body .vnext7-verdict-bottom small,
+body .vocab-reading {
+  color: var(--ba-text-secondary);
+}
+
+
+body .auth-guest-link,
+body .auth-guest-link:hover,
+body .auth-switch button,
+body .ba-admin-role.is-admin,
+body .back-link span,
+body .board-evidence-list button>i,
+body .book-chapter-title-lockup small,
+body .book-examples article small,
+body .book-page-foot,
+body .book-page-kicker,
+body .book-page-top,
+body .book-page-top-academic,
+body .book-page-top-academic>span,
+body .book-summary-list b,
+body .book-vocab-grid article>span,
+body .chapter-heading-inline>span,
+body .data-action-icon,
+body .deduction-evidence-card small,
+body .deduction-evidence-top>span,
+body .deduction-solution li>small,
+body .episode-academic-title>span,
+body .evidence-clue span,
+body .evidence-investigative-fact small,
+body .evidence-investigative-main span,
+body .eyebrow,
+body .feedback-warning>span,
+body .flipbook-toc button span:first-child,
+body .flipbook-toc-list button span:first-child,
+body .game-top-title .game-top-title-arabic,
+body .hero-note .folder-crescent,
+body .hero-note span,
+body .howto-list li>span,
+body .istima-adaptation-note,
+body .library-chapter-arabic,
+body .library-chapter.selected span,
+body .mastery-card span,
+body .mastery-card-icon,
+body .mastery-chapter-heading>span,
+body .modal-eyebrow,
+body .note-icon,
+body .panel-kicker,
+body .piece-text span i,
+body .puzzle-tip>span,
+body .question-number,
+body .speaker-task,
+body .speaker-utterance>span,
+body .stat-card:nth-child(2) .stat-icon,
+body .stat-card:nth-child(3) .stat-icon,
+body .stat-card:nth-child(4) .stat-icon,
+body .stat-icon,
+body .storage-disclaimer>span,
+body .summary-academic-title span,
+body .summary-suspect>strong,
+body .suspect-arabic,
+body .suspect-detail small,
+body .suspect-identity-note small,
+body .suspect-index,
+body .suspect-selection-guidance>span,
+body .toc-chapter-heading>span,
+body .vocab-example span,
+body .vocab-level,
+body .vocab-reading i,
+body .vocab-translit {
+  color: var(--ba-amber-bright);
+}
+
+
+body .answer-option>i,
+body .ba-admin-secondary,
+body .book-examples article>strong,
+body .book-grammar-list h3,
+body .book-learning-objective strong,
+body .book-progress strong,
+body .book-vocab-grid article>strong,
+body .briefing-location>span,
+body .case-number,
+body .chronology-card-top,
+body .context-sentence strong,
+body .deduction-evidence-card .deduction-fact p,
+body .deduction-evidence-top>strong,
+body .episode-meta span:first-child,
+body .feedback-success>span,
+body .folder-label strong,
+body .game-audio-summary-icon,
+body .game-audio-summary-state,
+body .game-progress-header .eyebrow,
+body .istima-arabic-line,
+body .istima-speaker>span:first-child,
+body .mini-art-location,
+body .puzzle-investigative-reading>span,
+body .sentence-reveal p,
+body .sentence-reveal small,
+body .speaker-utterance>strong,
+body .summary-proof small,
+body .target-found .target-arrow,
+body .target-found .target-status,
+body .toast>span,
+body .vnext7-suspect-card .suspect-detail small,
+body .vnext7-suspect-card .suspect-identity-note small,
+body .vnext7-suspect-card .suspect-index,
+body .vocab-arabic {
+  color: var(--ba-teal-bright);
+}
+
+
+body .answer-selected .option-letter,
+body .book-arabic-example,
+body .book-arabic-title,
+body .book-chapter-title-arabic,
+body .book-indicator-list h3,
+body .book-indicator-list ol,
+body .book-page-foot strong,
+body .book-vocab-grid article>p,
+body .deduction-elimination-list p,
+body .deduction-elimination-list strong,
+body .deduction-solution h3,
+body .deduction-solution h4,
+body .deduction-solution li>p,
+body .deduction-solution li>strong,
+body .episode-progress-label strong,
+body .evidence-investigative-fact p,
+body .evidence-investigative-main p,
+body .evidence-recap-strip small,
+body .flipbook-toc button,
+body .game-audio-controls>summary,
+body .game-audio-panel,
+body .game-feedback>span,
+body .import-summary strong,
+body .istima-transcript article>p,
+body .istima-transcript>h3,
+body .mastery-big-score,
+body .mastery-result-details strong,
+body .phase-step.step-current,
+body .piece-text > span,
+body .piece-text strong,
+body .practice-instructions,
+body .practice-word,
+body .puzzle-investigative-reading>small,
+body .puzzle-reset-button:hover:not(:disabled),
+body .question-feedback p,
+body .sentence-reveal strong,
+body .star-empty,
+body .summary-academic-title strong,
+body .target-count,
+body .toc-chapter-heading strong,
+body .vocab-card-foot strong,
+body .vocab-reading strong {
+  color: var(--ba-cyan-bright);
+}
+
+
+body .back-link:hover,
+body .brand-copy em,
+body .briefing-list li span,
+body .danger-text,
+body .folder-crescent,
+body .folder-stamp,
+body .game-reset-link,
+body .game-reset-link:hover,
+body .game-score-card strong,
+body .note-link,
+body .objective-row>span,
+body .reset-row-danger strong,
+body .reset-section h2,
+body .score-mini strong,
+body .section-heading .eyebrow,
+body .summary-breakdown .penalty,
+body .text-link {
+  color: var(--ba-danger-text);
+}
+
+
+body .context-sentence span {
+  color: var(--ba-lavender-bright);
+}
+
+
+/* Component state and form details. */
+.auth-guest-badge {
+  color: var(--ba-amber-bright);
+  border-color: rgba(215, 183, 127, .38);
+  background: rgba(185, 138, 75, .08);
+}
+
+.auth-open-button,
+.btn-primary {
+  color: var(--ba-amber-ink);
+  background: linear-gradient(135deg, #C49A5C, #A97B43);
+  border-color: #C29A61;
+}
+
+.auth-open-button:hover,
+.btn-primary:hover:not(:disabled) {
+  color: var(--ba-amber-ink);
+  background: linear-gradient(135deg, #D0AA70, #B98A4B);
+}
+
+.auth-logout-button {
+  color: var(--ba-title);
+  background: var(--ba-surface-elevated);
+  border-color: #425B70;
+}
+
+.auth-field input:focus,
+.auth-field input:focus-visible {
+  border-color: var(--ba-teal-bright);
+  outline-color: rgba(165, 211, 207, .28);
+}
+
+@media (max-width: 760px) {
+  .game-audio-controls {
+    left: 10px;
+    bottom: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}

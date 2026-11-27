@@ -1,0 +1,23 @@
+PATCH BASYIR AGENCY: INTEGRASI SINKRONISASI PROGRES CLOUD
+
+1. Buat cadangan file src/App.jsx yang sekarang di komputer Anda.
+2. Ekstrak ZIP ini ke folder utama proyek basyir-agency.
+3. Izinkan Windows mengganti file src/App.jsx.
+4. Jangan mengganti file lain. Patch ini mengasumsikan file berikut sudah ada:
+   - src/auth/AuthContext.jsx
+   - src/auth/AuthControls.jsx
+   - src/services/progressSync.js
+   - src/lib/supabaseClient.js
+5. Jalankan:
+   npm run build
+   npm test
+6. Jika kedua perintah berhasil, jalankan:
+   npm run dev
+
+PENTING:
+- Jangan push ke GitHub sebelum pengujian manual.
+- Jangan hapus data localStorage atau sessionStorage.
+- Pastikan tabel public.player_progress memiliki kolom:
+  user_id, campaign_progress, vocabulary_progress, active_sessions, updated_at.
+- Pastikan RLS mengizinkan authenticated user hanya membaca/menulis baris dengan user_id = auth.uid().
+- Patch ini merupakan integrasi awal yang tetap perlu diuji pada proyek lokal dan Supabase Anda.

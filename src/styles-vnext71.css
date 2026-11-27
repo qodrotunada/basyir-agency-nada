@@ -1,0 +1,1211 @@
+/* BASYIR AGENCY vNext7.1 — layout safety and refined dark palette.
+   Loaded after the legacy stylesheet so these tokens are the final visual layer. */
+
+:root {
+  color-scheme: dark;
+  --navy: #071525;
+  --navy2: #102338;
+  --ink: #e8f0f5;
+  --muted: #a8b8c5;
+  --line: #2a4358;
+  --paper: #102338;
+  --gold: #b98a4b;
+  --gold-dark: #98703f;
+  --teal: #398b87;
+  --red: #c27772;
+  --coral: #bd786c;
+  --lime: #9eae8d;
+  --mint: #173b3a;
+  --lavender: #2c3047;
+  --sand: #302d27;
+  --ba-bg: #071321;
+  --ba-surface: #0c1d2e;
+  --ba-surface-raised: #12283b;
+  --ba-surface-inset: #091a2a;
+  --ba-border: #2a4358;
+  --ba-text: #e8f0f5;
+  --ba-text-secondary: #b1bfca;
+  --ba-text-muted: #91a3b1;
+  --ba-amber: #b98a4b;
+  --ba-amber-hover: #c49a5c;
+  --ba-amber-ink: #071525;
+  --ba-teal: #398b87;
+  --ba-teal-soft: #17383b;
+  --ba-cyan: #477f90;
+  --ba-cyan-soft: #172f40;
+  --ba-success-bg: #15352f;
+  --ba-success-text: #a9d9bd;
+  --ba-warning-bg: #382f20;
+  --ba-warning-text: #e0c48e;
+  --ba-danger-bg: #3c272b;
+  --ba-danger-text: #e3aaa4;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  background: var(--ba-bg);
+  color: var(--ba-text);
+}
+
+html {
+  overflow-x: clip;
+  scroll-padding-top: 18px;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  overflow-x: clip;
+  background:
+    radial-gradient(ellipse at 14% 0%, rgba(36, 91, 105, .15), transparent 34%),
+    radial-gradient(ellipse at 92% 20%, rgba(38, 68, 103, .14), transparent 30%),
+    var(--ba-bg);
+  color: var(--ba-text);
+}
+
+#root,
+.app-root {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.app-root {
+  min-width: 0;
+  background: transparent;
+  color: var(--ba-text);
+}
+
+.main-shell,
+.campaign-screen,
+.game-screen,
+.dictionary-screen,
+.data-screen {
+  min-width: 0;
+}
+
+/* Header content may wrap instead of forcing the navigation and actions to collide. */
+.site-header {
+  z-index: 20;
+  height: auto;
+  min-height: 78px;
+  background: rgba(5, 17, 31, .96);
+  border-bottom: 1px solid rgba(72, 126, 139, .24);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.header-inner {
+  width: min(1200px, calc(100% - 48px));
+  min-height: 78px;
+  height: auto;
+  padding-block: 10px;
+  gap: 14px;
+}
+
+.brand,
+.main-nav,
+.header-actions,
+.auth-header-actions {
+  min-width: 0;
+}
+
+.header-actions,
+.auth-header-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.main-nav {
+  min-width: 0;
+}
+
+/* Fixed dialogs are rendered into document.body (React portals), never inside
+   transformed/filtered page sections. Safe max-height + internal scrolling
+   prevents the top or submit button from being clipped on short viewports. */
+.modal-backdrop {
+  position: fixed ;
+  inset: 0 ;
+  z-index: 3000 ;
+  display: grid ;
+  align-items: center ;
+  justify-items: center ;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding:
+    max(14px, env(safe-area-inset-top))
+    max(14px, env(safe-area-inset-right))
+    max(14px, env(safe-area-inset-bottom))
+    max(14px, env(safe-area-inset-left));
+  overflow-x: hidden ;
+  overflow-y: auto ;
+  overscroll-behavior: contain;
+  background: rgba(2, 9, 17, .82) ;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.modal-card {
+  width: min(520px, 100%);
+  min-width: 0;
+  max-width: 100%;
+  max-height: calc(100vh - 28px);
+  max-height: calc(100dvh - 28px);
+  min-height: 0;
+  margin: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  background: var(--ba-surface-raised) ;
+  color: var(--ba-text) ;
+  border: 1px solid var(--ba-border) ;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .48) ;
+}
+
+.modal-card h2,
+.modal-card h3 {
+  color: var(--ba-text) ;
+}
+
+.modal-card > p,
+.modal-card .muted {
+  color: var(--ba-text-secondary) ;
+}
+
+.modal-eyebrow {
+  color: #d0a76b ;
+}
+
+.modal-close {
+  z-index: 3;
+  background: #1b3449 ;
+  color: #dce8ef ;
+  border: 1px solid #3b566b ;
+}
+
+.auth-backdrop {
+  z-index: 3200 ;
+}
+
+.auth-modal {
+  width: min(440px, 100%);
+  max-height: calc(100vh - 28px);
+  max-height: calc(100dvh - 28px);
+  padding: clamp(22px, 3vw, 30px);
+  border-radius: 18px 18px 18px 7px;
+}
+
+.auth-modal h2 {
+  max-width: 100%;
+  padding-right: 38px;
+  margin: 9px 0 8px;
+  font-size: clamp(21px, 4vw, 25px);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.auth-description {
+  margin: 0;
+  color: var(--ba-text-secondary) ;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.auth-form {
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.auth-field {
+  min-width: 0;
+  color: var(--ba-text-secondary) ;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.auth-field input {
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  padding: 12px 13px;
+  border: 1px solid #38536a ;
+  border-radius: 9px;
+  background: #091a2a ;
+  color: var(--ba-text) ;
+  font-size: 14px;
+  line-height: 1.35;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .18);
+}
+
+.auth-field input::placeholder {
+  color: #91a3b1 ;
+  opacity: 1;
+}
+
+.auth-field input:focus,
+.auth-field input:focus-visible {
+  border-color: #639e9c ;
+  outline: 2px solid rgba(99, 158, 156, .28);
+  outline-offset: 1px;
+}
+
+.auth-feedback {
+  padding: 11px 12px;
+  border-radius: 9px;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.auth-feedback-success {
+  background: var(--ba-success-bg) ;
+  color: var(--ba-success-text) ;
+  border: 1px solid #2d6554;
+}
+
+.auth-feedback-error {
+  background: var(--ba-danger-bg) ;
+  color: var(--ba-danger-text) ;
+  border: 1px solid #75454a;
+}
+
+.auth-switch {
+  margin-top: 18px;
+  color: var(--ba-text-secondary) ;
+  line-height: 1.7;
+}
+
+.auth-switch button,
+.auth-guest-link {
+  color: #d0a76b ;
+}
+
+.auth-guest-link {
+  min-height: 42px;
+  padding: 10px;
+}
+
+.auth-open-button,
+.auth-logout-button {
+  min-height: 38px;
+  padding: 9px 12px;
+  border-radius: 9px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.auth-open-button {
+  background: #ad8248 ;
+  color: #071525 ;
+  border: 1px solid #bd9459 ;
+}
+
+.auth-open-button:hover {
+  background: #bd9154 ;
+}
+
+.auth-guest-badge {
+  background: #172a3b ;
+  color: #d7bd8d ;
+  border-color: #4b493b ;
+}
+
+.auth-user-label {
+  color: var(--ba-text-secondary) ;
+}
+
+.auth-logout-button {
+  background: #1a3044 ;
+  color: var(--ba-text) ;
+  border: 1px solid #405a70 ;
+}
+
+/* Muted accent buttons: warm but no longer luminous against navy. */
+.btn-primary {
+  background: linear-gradient(135deg, #b98a4b, #a97b43) ;
+  color: var(--ba-amber-ink) ;
+  border-color: #c29a61 ;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, .22);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #c49a5c, #b18448) ;
+  color: #071525 ;
+}
+
+.btn-secondary,
+.btn-outline,
+.icon-action,
+.puzzle-reset-button {
+  background: #172f45 ;
+  color: #dce8ef ;
+  border-color: #3a566c ;
+}
+
+.btn-secondary:hover:not(:disabled),
+.btn-outline:hover:not(:disabled),
+.icon-action:hover:not(:disabled),
+.puzzle-reset-button:hover:not(:disabled) {
+  background: #203c53 ;
+  border-color: #527187 ;
+}
+
+.btn-ghost {
+  color: #d8e4ec ;
+  border-color: #456176 ;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: rgba(92, 137, 155, .14) ;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #77aaa9;
+  outline-offset: 3px;
+}
+
+/* Muted the warm paper props and accent panels while retaining the detective-file motif. */
+.hero-folder {
+  background: linear-gradient(145deg, #8d7046, #705735) ;
+  color: #f2e6ce ;
+  border-color: #b08d59 ;
+}
+
+.folder-tab {
+  background: #705735 ;
+}
+
+.folder-lines i {
+  background: rgba(244, 230, 205, .2) ;
+}
+
+.hero-note {
+  background: #172d41 ;
+  color: #e8f0f5 ;
+  border-color: #425a6d ;
+}
+
+.hero-note strong {
+  color: #edf3f6 ;
+}
+
+.hero-note small {
+  color: #aebdc8 ;
+}
+
+.hero-note span,
+.hero-note .folder-crescent {
+  color: #c58d70 ;
+}
+
+.note-b {
+  background: #20383b ;
+  color: #e4efec ;
+}
+
+.hero-pin {
+  background: #1a3045 ;
+  color: #dfc18a ;
+  border-color: #53677a ;
+}
+
+.pin-b {
+  background: #1b3737 ;
+  color: #b9d9cf ;
+}
+
+.pin-c {
+  background: #292e46 ;
+  color: #c9cbe0 ;
+}
+
+/* Common cards and pages that were still using the previous light-paper surfaces. */
+.briefing-card,
+.briefing-side,
+.scene-panel,
+.suspect-screen,
+.mastery-side-card,
+.question-card,
+.data-action-card,
+.reset-section,
+.library-chapter,
+.flipbook-toc,
+.book-grammar-list article,
+.book-examples article {
+  background: var(--ba-surface-raised) ;
+  color: var(--ba-text) ;
+  border-color: var(--ba-border) ;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .2);
+}
+
+.briefing-card h1,
+.briefing-card h2,
+.briefing-card h3,
+.briefing-side h2,
+.scene-panel h2,
+.scene-panel h3,
+.suspect-screen h2,
+.mastery-side-card h1,
+.mastery-side-card h2,
+.question-card h2 {
+  color: var(--ba-text) ;
+}
+
+.briefing-card p,
+.briefing-side p,
+.scene-panel p,
+.mastery-side-card p,
+.question-card p,
+.book-grammar-list article p,
+.book-examples article p {
+  color: var(--ba-text-secondary) ;
+}
+
+.briefing-location,
+.counter-pill,
+.puzzle-instruction,
+.piece-number,
+.piece-controls button,
+.evidence-recap-strip span,
+.suspect-note,
+.suspect-note span,
+.import-summary div,
+.empty-state,
+.question-mode,
+.option-letter,
+.mastery-result-details span,
+.search-box,
+.search-box kbd,
+.data-action-icon,
+.reset-row,
+.reset-row-icon,
+.storage-disclaimer,
+.recovery-notice,
+.practice-question-panel,
+.practice-result-bar,
+.auto-next-note,
+.context-evidence-grid div,
+.book-learning-objective,
+.detective-instruction,
+.deduction-evidence-card .deduction-fact,
+.evidence-investigative-fact,
+.deduction-elimination-list > div,
+.deduction-conclusion,
+.istima-audio-card,
+.adaptation-badge,
+.view-zoom-controls {
+  background: #0d2032 ;
+  color: var(--ba-text-secondary) ;
+  border-color: #2c465b ;
+}
+
+.briefing-divider,
+.suspect-card-divider,
+.progress-track,
+.phase-step:not(:last-child)::after,
+.phase-step:not(:last-child):after,
+.piece-solved {
+  background-color: #2a4054 ;
+}
+
+.stat-icon,
+.detective-section-heading > span,
+.suspect-index,
+.panel-kicker,
+.vocab-level {
+  color: #d0a76b ;
+}
+
+.stat-icon,
+.note-icon,
+.data-action-icon,
+.mastery-card-icon {
+  background: #263243 ;
+  border: 1px solid #4b493d ;
+  color: #d0a76b ;
+}
+
+.status-complete,
+.vocab-mastered,
+.feedback-success {
+  background: #15352f ;
+  color: #a9d9bd ;
+  border-color: #2e6554 ;
+}
+
+.status-open,
+.vocab-review,
+.feedback-warning {
+  background: #382f20 ;
+  color: #e0c48e ;
+  border-color: #665337 ;
+}
+
+.status-locked,
+.vocab-new,
+.vocab-learning {
+  background: #1b2b3a ;
+  color: #afbfca ;
+  border-color: #3a5063 ;
+}
+
+.progress-track,
+.practice-progress,
+.mastery-result-bar {
+  background: #26394b ;
+}
+
+.progress-track span,
+.practice-progress span,
+.mastery-result-bar span {
+  background: linear-gradient(90deg, #98703f, #bd9459) ;
+}
+
+.phase-step span,
+.phase-step.step-done span {
+  background: #1b3043 ;
+  color: #d9e4eb ;
+  border-color: #425b70 ;
+}
+
+.phase-step.step-done span {
+  background: #183a35 ;
+  color: #a9d9bd ;
+  border-color: #3e7564 ;
+}
+
+.target-glyph,
+.game-feedback > span,
+.toast > span,
+.evidence-modal-icon,
+.summary-seal,
+.mastery-result-seal {
+  background: #1b3043 ;
+  color: #d5b77f ;
+  border-color: #425b70 ;
+}
+
+.target-found .target-glyph,
+.feedback-success > span {
+  background: #1a3b34 ;
+  color: #a9d9bd ;
+}
+
+.feedback-warning > span {
+  background: #3a3020 ;
+  color: #e0c48e ;
+}
+
+.feedback-info {
+  background: #142a3c ;
+  color: #c2d1dc ;
+  border-color: #36536a ;
+}
+
+.feedback-success {
+  border-color: #2e6554 ;
+}
+
+.feedback-warning {
+  border-color: #665337 ;
+}
+
+.feedback-info {
+  border-color: #36536a ;
+}
+
+.answer-option,
+.board-evidence-list button,
+.reset-row {
+  background: #11283b ;
+  color: #dce7ee ;
+  border-color: #304b60 ;
+}
+
+.answer-option:hover:not(:disabled),
+.board-evidence-list button:hover,
+.reset-row:hover {
+  background: #1a3549 ;
+  border-color: #527286 ;
+}
+
+.answer-selected {
+  background: #1b3747 ;
+  border-color: #7b704f ;
+  color: #f0e5ce ;
+}
+
+.answer-correct {
+  background: #15382f ;
+  border-color: #47856d ;
+  color: #b9e1ca ;
+}
+
+.answer-correct .option-letter {
+  background: #245744 ;
+  color: #d2f0dc ;
+}
+
+.answer-wrong {
+  background: #3a272b ;
+  border-color: #805052 ;
+  color: #e8b5af ;
+}
+
+.answer-wrong .option-letter {
+  background: #59353a ;
+  color: #f0cbc6 ;
+}
+
+.q-correct {
+  background: #15352f ;
+  color: #b9e1ca ;
+}
+
+.q-wrong {
+  background: #382f20 ;
+  color: #e0c48e ;
+}
+
+.search-box {
+  border: 1px solid #3a566c ;
+  color: #aabac7 ;
+}
+
+.search-box input {
+  background: transparent ;
+  color: var(--ba-text) ;
+}
+
+.search-box input::placeholder {
+  color: #91a3b1 ;
+  opacity: 1;
+}
+
+.search-box kbd {
+  background: #1b3043 ;
+  color: #b6c4ce ;
+}
+
+.vocab-new,
+.vocab-learning,
+.vocab-review,
+.vocab-mastered {
+  border: 1px solid #3a5063 ;
+}
+
+.vocab-example,
+.vocab-card .vocab-example {
+  background: #0b1d2e ;
+  color: var(--ba-text-secondary) ;
+  border-color: #2d465a ;
+}
+
+.vocab-example strong,
+.vocab-card .vocab-example strong {
+  color: #e8f0f5 ;
+}
+
+.vocab-example p {
+  color: #aabac6 ;
+}
+
+.import-error {
+  background: #3a272b ;
+  color: #e8b5af ;
+  border-color: #805052 ;
+}
+
+.storage-disclaimer,
+.recovery-notice {
+  border: 1px solid #4a493d ;
+}
+
+.storage-disclaimer p,
+.recovery-notice p {
+  color: #c0b49a ;
+}
+
+.storage-disclaimer strong,
+.recovery-notice strong {
+  color: #e0c48e ;
+}
+
+.arabic-audio-button,
+.audio-button {
+  background: #172f43 ;
+  color: #c2d9df ;
+  border: 1px solid #3a5b6d ;
+}
+
+.arabic-audio-button:hover,
+.audio-button:hover {
+  background: #203e50 ;
+  color: #e3eff2 ;
+}
+
+.arabic-audio-button.audio-loading {
+  background: #3a3020 ;
+  color: #e0c48e ;
+}
+
+.arabic-audio-button.audio-error {
+  background: #3a272b ;
+  color: #e8b5af ;
+}
+
+.arabic-audio-button.audio-ready,
+.arabic-audio-button.audio-playing {
+  background: #173832 ;
+  color: #b6dfcf ;
+}
+
+.library-chapter.selected,
+.flipbook-toc button.toc-active {
+  background: #1c3446 ;
+  color: #e6edf2 ;
+  border-color: #7a6749 ;
+}
+
+.book-learning-objective {
+  color: #d8e3e9 ;
+}
+
+.deduction-conclusion {
+  color: #e1d2b5 ;
+  border-color: #65553b ;
+}
+
+.adaptation-badge {
+  color: #dfc18a ;
+}
+
+.view-zoom-controls {
+  z-index: 850;
+  background: rgba(13, 32, 50, .96) ;
+  color: #dce8ef ;
+  border: 1px solid #38546a ;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, .32) ;
+}
+
+.view-zoom-controls button {
+  background: #1b3449 ;
+  color: #dce8ef ;
+}
+
+.view-zoom-controls button:hover:not(:disabled) {
+  background: #28465c ;
+}
+
+.view-zoom-controls output {
+  color: #b8c7d1 ;
+}
+
+/* Text hierarchy and long content should wrap instead of widening cards. */
+.episode-card,
+.stat-card,
+.vocab-card,
+.suspect-card,
+.briefing-card,
+.briefing-side,
+.scene-panel,
+.modal-card,
+.flipbook-page,
+.admin-dashboard,
+.admin-panel {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+@media (max-width: 760px) {
+  .header-inner {
+    width: calc(100% - 28px);
+    min-height: 0;
+    padding-block: 11px;
+    align-items: center;
+  }
+
+  .header-actions {
+    width: 100%;
+    order: 2;
+    justify-content: flex-end;
+    margin-left: 0;
+  }
+
+  .auth-header-actions {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .main-nav {
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  .auth-modal {
+    width: 100%;
+    max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - 24px);
+    padding: 22px 18px;
+  }
+
+  .modal-backdrop {
+    padding:
+      max(12px, env(safe-area-inset-top))
+      max(12px, env(safe-area-inset-right))
+      max(12px, env(safe-area-inset-bottom))
+      max(12px, env(safe-area-inset-left));
+  }
+
+  .modal-card {
+    max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - 24px);
+    padding: 21px 17px;
+  }
+
+  .modal-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+  }
+
+  .modal-actions .btn {
+    min-width: min(100%, 130px);
+    flex: 1 1 130px;
+  }
+
+  .view-zoom-controls {
+    right: 10px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 420px) {
+  .brand-copy strong {
+    font-size: 12px;
+  }
+
+  .auth-open-button,
+  .auth-logout-button {
+    min-height: 36px;
+    padding: 8px 10px;
+    font-size: 9px;
+  }
+
+  .auth-user-label {
+    max-width: 120px;
+  }
+
+  .auth-form {
+    gap: 12px;
+  }
+
+  .auth-field input {
+    min-height: 44px;
+    font-size: 16px;
+  }
+
+  .modal-close {
+    top: 12px;
+    right: 12px;
+  }
+}
+
+@media (max-height: 620px) {
+  .modal-backdrop {
+    align-items: start ;
+  }
+
+  .modal-card {
+    margin-block: 0;
+    max-height: calc(100vh - 20px);
+    max-height: calc(100dvh - 20px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-card {
+    animation: none ;
+  }
+}
+
+
+/* Final specificity pass: tone down legacy state badges and card variants. */
+.icon-action.disabled,
+.storage-pill,
+.case-tag,
+.checkpoint-tag {
+  background: #1a2e40 ;
+  color: #b8c5cf ;
+  border-color: #3a5063 ;
+}
+
+.nav-link:hover {
+  background: rgba(91, 129, 147, .12) ;
+  color: #e1eaf0 ;
+}
+
+.toast > span,
+.game-feedback > span {
+  background: #1b3043 ;
+  color: #d7c08f ;
+  border: 1px solid #42576b ;
+}
+
+.feedback-success > span {
+  background: #1b3b33 ;
+  color: #b7dfc8 ;
+}
+
+.feedback-warning > span {
+  background: #3a3020 ;
+  color: #e0c48e ;
+}
+
+.data-stat {
+  background: #12283b ;
+  color: #e8f0f5 ;
+  border-color: #304b60 ;
+}
+
+.data-stat span {
+  color: #b1bfca ;
+}
+
+.data-stat strong {
+  color: #edf3f6 ;
+}
+
+.reset-row-danger .reset-row-icon {
+  background: #3c272b ;
+  color: #e3aaa4 ;
+  border-color: #75454a ;
+}
+
+.flipbook-toc-list button.toc-active {
+  background: #1b3548 ;
+  color: #e8f0f5 ;
+  border-color: #796748 ;
+}
+
+.detective-section-heading > span {
+  background: #20363b ;
+  color: #b7d4cd ;
+  border-color: #41635f ;
+}
+
+.deduction-elimination-list > div {
+  background: #0d2032 ;
+  color: #d6e1e8 ;
+  border-color: #304b60 ;
+}
+
+.suspect-card:nth-child(1),
+.suspect-card:nth-child(2),
+.suspect-card:nth-child(3),
+.suspect-card.suspect-selected {
+  background: linear-gradient(155deg, #142b3f, #0d2032) ;
+  color: #e8f0f5 ;
+  border-color: #304b60 ;
+}
+
+.suspect-card.suspect-selected {
+  border-color: #9c7a4d ;
+  box-shadow: 0 0 0 2px rgba(185, 138, 75, .12) ;
+}
+
+.suspect-avatar {
+  background: linear-gradient(145deg, #294356, #172b3e) ;
+  border-color: #4a667b ;
+  color: #e5c58d ;
+}
+
+.summary-breakdown div,
+.summary-breakdown > div {
+  background: #0d2032 ;
+  color: #dce7ee ;
+  border-color: #304b60 ;
+}
+
+.summary-breakdown span {
+  color: #aebdc8 ;
+}
+
+.summary-breakdown strong {
+  color: #edf3f6 ;
+}
+
+.vocab-card:nth-child(3n/**/+2),
+.vocab-card:nth-child(3n) {
+  background: #102338 ;
+  color: #e8f0f5 ;
+  border-color: #2d475c ;
+}
+
+.vocab-card:nth-child(3n/**/+2) .vocab-example,
+.vocab-card:nth-child(3n) .vocab-example {
+  background: #0b1d2e ;
+}
+
+.target-item.target-found {
+  background: #15352f ;
+  color: #dceee5 ;
+  border-color: #2e6554 ;
+}
+
+.target-item:hover {
+  background: #173047 ;
+  border-color: #45657b ;
+}
+
+
+:root {
+  background: var(--ba-bg);
+}
+
+.stat-card:nth-child(2) .stat-icon,
+.stat-card:nth-child(3) .stat-icon,
+.stat-card:nth-child(4) .stat-icon {
+  background: #263243 ;
+  color: #d0a76b ;
+  border-color: #4b493d ;
+}
+
+
+/* Surfaces originally converted by the vNext7 dark-mode layer, now expressed
+   without specificity hacks so the vNext7.1 palette can own the cascade. */
+.stat-card,
+.episode-card,
+.episode-card-body,
+.learning-note,
+.dictionary-toolbar,
+.vocab-card,
+.detective-analysis-section,
+.suspect-card,
+.targets-panel,
+.puzzle-board,
+.puzzle-intro-card,
+.summary-main,
+.summary-side,
+.mastery-card,
+.modal-card,
+.evidence-modal-content,
+.deduction-solution,
+.practice-modal,
+.flipbook-toc,
+.flipbook-page,
+.book-grammar-list article,
+.book-examples article,
+.admin-dashboard,
+.admin-panel,
+.library-heading,
+.library-chapter,
+.learning-path-card,
+.target-item,
+.puzzle-piece,
+.sentence-reveal,
+.puzzle-tip,
+.context-sentence,
+.puzzle-investigative-reading,
+.deduction-evidence-card,
+.speaker-utterance,
+.suspect-selection-guidance,
+.suspect-identity-note,
+.summary-proof,
+.practice-progress,
+.vocab-example,
+.evidence-clue,
+.evidence-investigative-fact > div {
+  background: var(--ba-surface-raised);
+  color: var(--ba-text);
+  border-color: var(--ba-border);
+}
+
+.target-item,
+.puzzle-piece,
+.sentence-reveal,
+.puzzle-tip,
+.context-sentence,
+.puzzle-investigative-reading,
+.deduction-evidence-card,
+.speaker-utterance,
+.suspect-selection-guidance,
+.suspect-identity-note,
+.summary-proof,
+.vocab-example,
+.evidence-clue,
+.evidence-investigative-fact > div {
+  background: var(--ba-surface-inset);
+}
+
+.target-item small,
+.target-copy small,
+.target-footer,
+.button-help,
+.evidence-clue p,
+.suspect-identity-note p,
+.speaker-utterance small,
+.summary-breakdown span {
+  color: var(--ba-text-muted);
+}
+
+.chronology-card-top {
+  color: #8abbb7;
+}
+
+.chronology-status {
+  color: #a9d4cc;
+  border-color: rgba(86, 151, 145, .38);
+  background: #18343a;
+}
+
+.chronology-actions .arabic-audio-button {
+  background: #172f43;
+  color: #c2d9df;
+  border-color: #3a5b6d;
+}
+
+.vnext7-suspect-card .suspect-index,
+.vnext7-suspect-card .suspect-detail small,
+.vnext7-suspect-card .suspect-identity-note small {
+  color: #8abbb7;
+}
+
+.practice-modal .answer-option.answer-selected {
+  border-color: #477f90;
+  background: #183546;
+}
+
+.practice-modal .answer-option.answer-correct {
+  border-color: #47856d;
+  background: #15382f;
+}
+
+.practice-modal .answer-option.answer-wrong {
+  border-color: #a96160;
+  background: #3c272b;
+}

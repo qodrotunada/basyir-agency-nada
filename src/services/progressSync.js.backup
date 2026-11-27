@@ -1,0 +1,300 @@
+
+import { supabase } from '../lib/supabaseClient.js';
+
+import {
+  initialCampaignProgress,
+  validateImportPayload
+} from '../engine/persistence.js';
+
+const EXPORT_SCHEMA_VERSION = 1;
+
+function validDate(value) {
+  if (typeof value !== 'string') return null;
+  return Number.isNaN(Date.parse(value)) ? null : value;
+}
+
+function latestDate(a, b) {
+  const da = validDate(a);
+  const db = validDate(b);
+
+  if (!da) return db;
+  if (!db) return da;
+
+  return Date.parse(da) >= Date.parse(db) ? da : db;
+}
+
+function earliestDate(a, b) {
+  const da = validDate(a);
+  const db = validDate(b);
+
+  if (!da) return db;
+  if (!db) return da;
+
+  return Date.parse(da) <= Date.parse(db) ? da : db;
+}
+
+function maxNumber(a, b, max = 100000) {
+  const values = [a, b].filter(Number.isSafeInteger);
+  return Math.min(max, Math.max(0, ...values));
+}
+
+/**
+ * Menggabungkan progres kampanye.
+ * Nilai terbaik tidak boleh menurun.
+ */
+export function mergeCampaignProgress(local, cloud, episodeIds) {
+  const base = initialCampaignProgress(episodeIds);
+
+  const localEpisodes = local?.episodes ?? {};
+  const cloudEpisodes = cloud?.episodes ?? {};
+
+  for (const id of episodeIds) {
+    const a = localEpisodes[id] ?? {};
+    const b = cloudEpisodes[id] ?? {};
+
+    const bestScore = maxNumber(a.bestScore, b.bestScore, 1000);
+    const bestMasteryScore = maxNumber(
+      a.bestMasteryScore,
+      b.bestMasteryScore,
+      100
+    );
+
+    base.episodes[id] = {
+      caseCompleted:
+        a.caseCompleted === true || b.caseCompleted === true,
+
+      bestScore,
+
+      latestScore: maxNumber(
+        a.latestScore,
+        b.latestScore,
+        1000
+      ),
+
+      starsEarned: maxNumber(
+        a.starsEarned,
+        b.starsEarned,
+        3
+      ),
+
+      bestMasteryScore,
+
+      latestMasteryScore:
+        a.latestMasteryScore == null &&
+        b.latestMasteryScore == null
+          ? null
+          : maxNumber(
+              a.latestMasteryScore,
+              b.latestMasteryScore,
+              100
+            ),
+
+      attemptCount: maxNumber(
+        a.attemptCount,
+        b.attemptCount
+      ),
+
+      completedAt: latestDate(
+        a.completedAt,
+        b.completedAt
+      )
+    };
+  }
+
+  return base;
+}
+
+/**
+ * Menggabungkan progres kamus.
+ */
+export function mergeVocabularyProgress(local = {}, cloud = {}) {
+  const result = {};
+
+  const ids = new Set([
+    ...Object.keys(local),
+    ...Object.keys(cloud)
+  ]);
+
+  for (const id of ids) {
+    const a = local[id] ?? {};
+    const b = cloud[id] ?? {};
+
+    const responses = new Map();
+
+    for (const item of [
+      ...(Array.isArray(a.recentResponses) ? a.recentResponses : []),
+      ...(Array.isArray(b.recentResponses) ? b.recentResponses : [])
+    ]) {
+      if (!item || typeof item !== 'object') continue;
+
+      const key = `${item.at}|${item.mode}|${item.correct}`;
+
+      responses.set(key, item);
+    }
+
+    const recentResponses = [...responses.values()]
+      .sort((x, y) => Date.parse(x.at) - Date.parse(y.at))
+      .slice(-5);
+
+    const seenCount = maxNumber(a.seenCount, b.seenCount);
+    const correctCount = maxNumber(a.correctCount, b.correctCount);
+    const incorrectCount = maxNumber(a.incorrectCount, b.incorrectCount);
+    const retrievalCount = maxNumber(a.retrievalCount, b.retrievalCount);
+
+    const recentRate = recentResponses.length
+      ? recentResponses.filter(item => item.correct === true).length /
+        recentResponses.length
+      : 0;
+
+    let masteryStatus = 'new';
+
+    if (retrievalCount >= 3 && recentRate >= 0.8) {
+      masteryStatus = 'mastered';
+    } else if (retrievalCount >= 2 && recentRate < 0.6) {
+      masteryStatus = 'review';
+    } else if (seenCount > 0 || retrievalCount > 0) {
+      masteryStatus = 'learning';
+    }
+
+    result[id] = {
+      seenCount,
+      correctCount,
+      incorrectCount,
+      retrievalCount,
+
+      encounteredEpisodeIds: [
+        ...new Set([
+          ...(Array.isArray(a.encounteredEpisodeIds)
+            ? a.encounteredEpisodeIds : []),
+          ...(Array.isArray(b.encounteredEpisodeIds)
+            ? b.encounteredEpisodeIds : [])
+        ])
+      ],
+
+      recentResponses,
+
+      firstSeenAt: earliestDate(
+        a.firstSeenAt,
+        b.firstSeenAt
+      ),
+
+      lastPracticedAt: latestDate(
+        a.lastPracticedAt,
+        b.lastPracticedAt
+      ),
+
+      masteryStatus,
+
+      createdAt: earliestDate(
+        a.createdAt,
+        b.createdAt
+      )
+    };
+  }
+
+  return result;
+}
+
+/**
+ * Menggabungkan snapshot sesi berdasarkan waktu penyimpanan.
+ */
+export function mergeActiveSessions(local = {}, cloud = {}) {
+  const result = {};
+
+  for (const id of new Set([
+    ...Object.keys(local),
+    ...Object.keys(cloud)
+  ])) {
+    const a = local[id];
+    const b = cloud[id];
+
+    const dateA = Date.parse(a?.envelope?.savedAt ?? '') || 0;
+    const dateB = Date.parse(b?.envelope?.savedAt ?? '') || 0;
+
+    result[id] = dateA >= dateB ? (a ?? b) : (b ?? a);
+  }
+
+  return result;
+}
+
+/**
+ * Membaca progres cloud milik pengguna yang sedang login.
+ */
+export async function fetchCloudProgress(userId, episodeIds, vocabularyIds) {
+  if (!userId) {
+    throw new Error('Pengguna belum login.');
+  }
+
+  const { data, error } = await supabase
+    .from('player_progress')
+    .select(`
+      campaign_progress,
+      vocabulary_progress,
+      active_sessions,
+      updated_at
+    `)
+    .eq('user_id', userId)
+    .maybeSingle();
+
+  if (error) throw error;
+
+  const rawCampaign = data?.campaign_progress;
+
+  const campaign =
+    rawCampaign &&
+    typeof rawCampaign === 'object' &&
+    Object.keys(rawCampaign).length > 0
+      ? rawCampaign
+      : initialCampaignProgress(episodeIds);
+
+  const vocabulary = data?.vocabulary_progress ?? {};
+
+  const validated = validateImportPayload(
+    {
+      exportSchemaVersion: EXPORT_SCHEMA_VERSION,
+      campaignProgress: campaign,
+      vocabularyProgress: vocabulary,
+      activeSession: null
+    },
+    episodeIds,
+    new Set(vocabularyIds)
+  );
+
+  return {
+    campaignProgress: validated.campaignProgress,
+    vocabularyProgress: validated.vocabularyProgress,
+    activeSessions: data?.active_sessions ?? {},
+    updatedAt: data?.updated_at ?? null
+  };
+}
+
+/**
+ * Menyimpan snapshot progres ke cloud.
+ */
+export async function saveCloudProgress(userId, progress) {
+  if (!userId) {
+    throw new Error('Pengguna belum login.');
+  }
+
+  const { error } = await supabase
+    .from('player_progress')
+    .upsert(
+      {
+        user_id: userId,
+        campaign_progress: progress.campaignProgress,
+        vocabulary_progress: progress.vocabularyProgress,
+        active_sessions: progress.activeSessions ?? {},
+        updated_at: new Date().toISOString()
+      },
+      {
+        onConflict: 'user_id'
+      }
+    );
+
+  if (error) throw error;
+
+  return {
+    ok: true,
+    savedAt: new Date().toISOString()
+  };
+}

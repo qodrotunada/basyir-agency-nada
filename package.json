@@ -1,0 +1,38 @@
+{
+  "name": "basyir-agency",
+  "private": true,
+  "version": "8.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "vitest run",
+    "build:nabra": "node scripts/fix-nabra-windows.mjs && npm --prefix node_modules/nabra-tts run build",
+    "postinstall": "npm run build:nabra",
+    "audit:content": "node scripts/verify-project.mjs",
+    "audit:theme": "node scripts/audit-theme-vnext8.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.119.0",
+    "nabra-tts": "https://github.com/Oddadmix/nabra-tts/archive/refs/heads/main.tar.gz",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "latest",
+    "@testing-library/react": "latest",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.3.0",
+    "@vitejs/plugin-react": "latest",
+    "esbuild": "^0.28.2",
+    "jsdom": "latest",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vite": "latest",
+    "vitest": "latest"
+  },
+  "engines": {
+    "node": ">=22.22.2"
+  }
+}

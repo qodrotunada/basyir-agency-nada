@@ -1,0 +1,150 @@
+/* BASYIR AGENCY vNext7.2 — persistent game audio controls */
+.game-audio-controls {
+  position: fixed;
+  left: 18px;
+  bottom: 18px;
+  z-index: 851;
+  font-family: inherit;
+}
+
+.game-audio-controls > summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  cursor: pointer;
+  padding: 9px 13px;
+  border: 1px solid #3A566C;
+  border-radius: 13px;
+  background: rgba(16, 36, 56, .97);
+  color: #EAF1F6;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, .28);
+  backdrop-filter: blur(10px);
+  font-size: 11px;
+  font-weight: 750;
+  user-select: none;
+}
+
+.game-audio-controls > summary::-webkit-details-marker {
+  display: none;
+}
+
+.game-audio-summary-icon {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background: #17383B;
+  color: #A5D3CF;
+  font-size: 17px;
+}
+
+.game-audio-summary-state {
+  margin-left: 2px;
+  padding: 3px 6px;
+  border-radius: 6px;
+  background: #17383B;
+  color: #A5D3CF;
+  font-size: 8px;
+  letter-spacing: .5px;
+}
+
+.game-audio-panel {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 9px);
+  width: min(310px, calc(100vw - 32px));
+  padding: 15px;
+  border: 1px solid #3A566C;
+  border-radius: 15px;
+  background: rgba(12, 29, 46, .99);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, .38);
+  backdrop-filter: blur(12px);
+  color: #EAF1F6;
+}
+
+.game-audio-panel-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 10px;
+}
+
+.game-audio-panel-heading strong {
+  color: #F4F7FA;
+  font-size: 13px;
+}
+
+.game-audio-panel-heading small,
+.game-audio-toggle small {
+  font-size: 10px;
+  color: #C8D4DE;
+}
+
+.game-audio-toggle,
+.game-audio-range {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid #344F64;
+}
+
+.game-audio-toggle > span,
+.game-audio-range > span {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.game-audio-toggle strong,
+.game-audio-range strong {
+  color: #EAF1F6;
+  font-size: 11px;
+}
+
+.game-audio-toggle input {
+  width: 17px;
+  height: 17px;
+  accent-color: #78B7AF;
+  flex-shrink: 0;
+}
+
+.game-audio-range output {
+  font-size: 10px;
+  color: #C8D4DE;
+  font-variant-numeric: tabular-nums;
+}
+
+.game-audio-range input {
+  width: 100%;
+  accent-color: #78B7AF;
+}
+
+.game-audio-note {
+  margin: 8px 0 0;
+  padding: 9px;
+  border-radius: 9px;
+  background: #091A2A;
+  border: 1px solid #344F64;
+  color: #C8D4DE;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .game-audio-controls {
+    left: 10px;
+    bottom: 10px;
+  }
+
+  .game-audio-controls > summary {
+    padding: 8px 10px;
+  }
+
+  .game-audio-panel {
+    width: min(290px, calc(100vw - 20px));
+  }
+}
